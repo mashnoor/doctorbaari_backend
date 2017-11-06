@@ -14,6 +14,9 @@ class UserController extends Controller
         $regno = $request->get('regno');
         $contact = $request->get('contact');
         $designation = $request->get('designation');
+        $dateofbirth = $request->get('dateofbirth');
+        $location = $request->get('worklocation');
+
 
         $user = new User();
         $user->fullname = $name;
@@ -21,7 +24,8 @@ class UserController extends Controller
         $user->designation = $designation;
         $user->mbbs_reg = $regno;
         $user->phone = $contact;
-
+        $user->birthdate = $dateofbirth;
+        $user->work1 = $location;
         $user->create_date = date("Y-m-d");
         $user->save();
         return response()->json([
