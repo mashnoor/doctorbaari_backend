@@ -15,3 +15,4 @@ use Illuminate\Http\Request;
 
 Route::post('/signup', 'UserController@signup');
 Route::get('/getsubs', 'SubController@getAllSubs');
+Route::post('/postsub', 'SubController@postSub');
