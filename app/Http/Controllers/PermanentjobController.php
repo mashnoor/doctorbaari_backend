@@ -27,6 +27,7 @@ class PermanentjobController extends Controller
         $permanentJob->zilla = "null";
         $permanentJob->thana = "null";
         $permanentJob->available = 1;
+        $permanentJob->degree = $degree;
 
         $permanentJob->save();
 
