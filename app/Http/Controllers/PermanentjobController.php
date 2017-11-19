@@ -15,6 +15,7 @@ class PermanentjobController extends Controller
         $details = $request->get('details');
         $hospital = $request->get('hospital');
         $division = $request->get('division');
+        $degree = $request->get('degree');
 
         $permanentJob = new PermanentJob();
         $permanentJob->post_date = $post_date;
