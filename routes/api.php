@@ -19,3 +19,4 @@ Route::post('/postsub', 'SubController@postSub');
 Route::post('/postpermanetjob', 'PermanentjobController@postPermanentJob');
 Route::post('/verifyregno', 'VerificationController@verify');
 Route::post('/getuser', 'UserController@getUser');
+Route::post('/isnumberavailable', 'UserController@isNumberAvailableInDatabase');

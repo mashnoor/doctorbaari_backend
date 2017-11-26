@@ -29,14 +29,26 @@ class UserController extends Controller
         $user->create_date = date("Y-m-d");
         $user->save();
         return response()->json([
-           "response" => "success",
+            "response" => "success",
             "user" => $user
         ]);
     }
+
     function getUser(Request $request)
     {
         $userId = $request->get('userid');
         $user = User::find($userId);
         return $user;
+    }
+
+    function isNumberAvailableInDatabase(Request $request)
+    {
+        $phone = $request->get('phone');
+        $user = User::where('phone', '=', $phone)->first();
+        if(is_null($user))
+        {
+            return "false";
+        }
+        return "true";
     }
 }
