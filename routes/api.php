@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/signup', 'UserController@signup');
+Route::post('/signup', 'UserController@signupMBBS');
 Route::get('/getsubs', 'SubController@getAllSubs');
 Route::post('/postsub', 'SubController@postSub');
 Route::post('/postpermanetjob', 'PermanentjobController@postPermanentJob');
+Route::post('/verifyregno', 'VerificationController@verify');
+Route::post('/getuser', 'UserController@getUser');

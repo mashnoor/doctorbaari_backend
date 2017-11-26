@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    function signup(Request $request)
+    function signupMBBS(Request $request)
     {
         $name = $request->get('name');
         $medicalCollege = $request->get('medicalcollege');
@@ -32,5 +32,11 @@ class UserController extends Controller
            "response" => "success",
             "user" => $user
         ]);
+    }
+    function getUser(Request $request)
+    {
+        $userId = $request->get('userid');
+        $user = User::find($userId);
+        return $user;
     }
 }
