@@ -53,4 +53,19 @@ class UserController extends Controller
         }
         return $user->id;
     }
+    function updateUserProfile(Request $request)
+    {
+        $id = $request->get('userid');
+        $email = $request->get('email');
+        $publicLink = $request->get('link');
+        $pictureUrl = $request->get('picture_url');
+        $user = User::find($id);
+        $user->email = $email;
+        $user->fb_profile = $publicLink;
+        $user->pp_url = $pictureUrl;
+
+        $user->save();
+        return "success";
+
+    }
 }
