@@ -17,6 +17,11 @@ class UserController extends Controller
         $dateofbirth = $request->get('dateofbirth');
         $location = $request->get('worklocation');
 
+        $dummyUser = User::where('phone', '=', $contact)->first();
+        if(!is_null($dummyUser))
+        {
+            return "occupied";
+        }
 
         $user = new User();
         $user->fullname = $name;
@@ -28,10 +33,7 @@ class UserController extends Controller
         $user->work1 = $location;
         $user->create_date = date("Y-m-d");
         $user->save();
-        return response()->json([
-            "response" => "success",
-            "user" => $user
-        ]);
+        return $user->id;
     }
 
     function getUser(Request $request)
@@ -49,6 +51,6 @@ class UserController extends Controller
         {
             return "false";
         }
-        return "true";
+        return $user->id;
     }
 }
