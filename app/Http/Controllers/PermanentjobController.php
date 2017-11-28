@@ -32,8 +32,8 @@ class PermanentjobController extends Controller
         $permanentJob->placename = $placename;
 
         $permanentJob->available = 1;
-        $placename->placelat = $placelat;
-        $placename->placelon = $placelon;
+        $permanentJob->placelat = $placelat;
+        $permanentJob->placelon = $placelon;
         $permanentJob->degree = $degree;
         $permanentJob->userid = $userid;
         $permanentJob->username = $user->fullname;
