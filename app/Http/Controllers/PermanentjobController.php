@@ -35,4 +35,14 @@ class PermanentjobController extends Controller
 
 
     }
+
+    function searchPermanentJob(Request $request)
+    {
+        $startingDate = $request->get('startingdate');
+        $degree = $request->get('degree');
+        $location = $request->get('location');
+
+        $jobs = PermanentJob::where('deadline', '>=', $startingDate)->where('degree', '=', $degree)->where('location', '=', $location)->get();
+        return $jobs;
+    }
 }

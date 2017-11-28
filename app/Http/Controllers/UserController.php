@@ -16,6 +16,8 @@ class UserController extends Controller
         $designation = $request->get('designation');
         $dateofbirth = $request->get('dateofbirth');
         $location = $request->get('worklocation');
+        $workinglat = $request->get('workinglat');
+        $workinglon = $request->get('workinglon');
 
         $dummyUser = User::where('phone', '=', $contact)->first();
         if(!is_null($dummyUser))
@@ -32,6 +34,8 @@ class UserController extends Controller
         $user->birthdate = $dateofbirth;
         $user->work1 = $location;
         $user->create_date = date("Y-m-d");
+        $user->workinglat = $workinglat;
+        $user->workinglon = $workinglon;
         $user->save();
         return $user->id;
     }
