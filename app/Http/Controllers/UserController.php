@@ -77,6 +77,8 @@ class UserController extends Controller
     {
         $user = User::find($request->get('userid'));
         $user->available = $request->get('status');
+        $user->from_date = $request->get('from_date');
+        $user->to_date = $request->get('to_date');
         $user->save();
         return "done";
     }
