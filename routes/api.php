@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +23,4 @@ Route::post('/getuser', 'UserController@getUser');
 Route::post('/isnumberavailable', 'UserController@isNumberAvailableInDatabase');
 Route::post('/updateuserprofile', 'UserController@updateUserProfile');
 Route::post('/searchpermanentjob', 'PermanentjobController@searchPermanentJob');
+Route::get('/getcollegelist', 'PermanentjobController@getCollegeList');
