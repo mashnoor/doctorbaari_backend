@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PermanentJob;
+use App\User;
 use Illuminate\Http\Request;
 
 class PermanentjobController extends Controller
@@ -18,6 +19,9 @@ class PermanentjobController extends Controller
         $degree = $request->get('degree');
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
+        $userid = $request->get('userid');
+
+        $user = User::find($userid);
 
         $permanentJob = new PermanentJob();
         $permanentJob->post_date = $post_date;
@@ -26,10 +30,13 @@ class PermanentjobController extends Controller
         $permanentJob->details = $details;
         $permanentJob->hospital = $hospital;
         $permanentJob->placename = $placename;
-        $permanentJob->zilla = "null";
-        $permanentJob->thana = "null";
+
         $permanentJob->available = 1;
+        $placename->placelat = $placelat;
+        $placename->placelon = $placelon;
         $permanentJob->degree = $degree;
+        $permanentJob->userid = $userid;
+        $permanentJob->username = $user->fullname;
 
         $permanentJob->save();
 
