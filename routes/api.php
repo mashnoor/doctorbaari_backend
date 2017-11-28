@@ -24,3 +24,4 @@ Route::post('/isnumberavailable', 'UserController@isNumberAvailableInDatabase');
 Route::post('/updateuserprofile', 'UserController@updateUserProfile');
 Route::post('/searchpermanentjob', 'PermanentjobController@searchPermanentJob');
 Route::get('/getcollegelist', 'PermanentjobController@getCollegeList');
+Route::post('/changestatus', 'PermanentjobController@changeAvaibilityStatus');

@@ -72,4 +72,12 @@ class UserController extends Controller
         return "success";
 
     }
+
+    function changeAvaibilityStatus(Request $request)
+    {
+        $user = User::find($request->get('userid'));
+        $user->available = $request->get('status');
+        $user->save();
+        return "done";
+    }
 }
