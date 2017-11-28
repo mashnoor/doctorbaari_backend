@@ -14,8 +14,10 @@ class PermanentjobController extends Controller
         $deadline = $request->get('deadline');
         $details = $request->get('details');
         $hospital = $request->get('hospital');
-        $division = $request->get('division');
+        $placename = $request->get('placename');
         $degree = $request->get('degree');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
 
         $permanentJob = new PermanentJob();
         $permanentJob->post_date = $post_date;
@@ -23,7 +25,7 @@ class PermanentjobController extends Controller
         $permanentJob->deadline = $deadline;
         $permanentJob->details = $details;
         $permanentJob->hospital = $hospital;
-        $permanentJob->division = $division;
+        $permanentJob->placename = $placename;
         $permanentJob->zilla = "null";
         $permanentJob->thana = "null";
         $permanentJob->available = 1;
