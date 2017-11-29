@@ -25,7 +25,7 @@ class SubController extends Controller
         $institute = $request->get('institute');
         $details = $request->get('details');
         $userid = $request->get('userid');
-        
+
         $user = User::find($userid);
 
 
