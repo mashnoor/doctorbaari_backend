@@ -3,39 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     function signupMBBS(Request $request)
     {
-        $name = $request->get('name');
+        $name = $request->get('username');
         $medicalCollege = $request->get('medicalcollege');
         $regno = $request->get('regno');
         $contact = $request->get('contact');
-        $designation = $request->get('designation');
+        $degree = $request->get('degree');
         $dateofbirth = $request->get('dateofbirth');
-        $location = $request->get('worklocation');
-        $workinglat = $request->get('workinglat');
-        $workinglon = $request->get('workinglon');
+        $place = $request->get('place');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
+        $type = $request->get('type');
 
         $dummyUser = User::where('phone', '=', $contact)->first();
-        if(!is_null($dummyUser))
-        {
+        if (!is_null($dummyUser)) {
             return "occupied";
         }
 
         $user = new User();
-        $user->fullname = $name;
+        $user->username = $name;
         $user->college = $medicalCollege;
-        $user->designation = $designation;
+        $user->degree = $degree;
         $user->mbbs_reg = $regno;
         $user->phone = $contact;
         $user->birthdate = $dateofbirth;
-        $user->work1 = $location;
-        $user->create_date = date("Y-m-d");
-        $user->workinglat = $workinglat;
-        $user->workinglon = $workinglon;
+        $user->place = $place;
+        $user->created_at = Carbon::now()->toDateTimeString();
+        $user->placelat = $placelat;
+        $user->placelon = $placelon;
+        $user->type = $type;
+        $user->availabel = "0";
         $user->save();
         return $user->id;
     }
@@ -51,12 +54,12 @@ class UserController extends Controller
     {
         $phone = $request->get('phone');
         $user = User::where('phone', '=', $phone)->first();
-        if(is_null($user))
-        {
+        if (is_null($user)) {
             return "false";
         }
         return $user->id;
     }
+
     function updateUserProfile(Request $request)
     {
         $id = $request->get('userid');
