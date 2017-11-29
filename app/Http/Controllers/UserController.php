@@ -38,7 +38,7 @@ class UserController extends Controller
         $user->placelat = $placelat;
         $user->placelon = $placelon;
         $user->type = $type;
-        $user->availabe = "0";
+        $user->available = "0";
         $user->save();
         return $user->id;
     }
