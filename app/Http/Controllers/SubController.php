@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Sub;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SubController extends Controller
@@ -15,29 +17,32 @@ class SubController extends Controller
     function postSub(Request $request)
     {
 
-        $date_to = $request->date_to;
-        $date_from = $request->date_from;
-        $division = $request->division;
-        $zilla = $request->zilla;
-        $thana = $request->thana;
-        $username = $request->username;
-        $hospital = $request->hospital;
-        $details = $request->details;
+        $date_to = $request->get('date_to');
+        $date_from = $request->get('date_from');
+        $place = $request->get('place');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
+        $institute = $request->get('institute');
+        $details = $request->get('details');
+        $userid = $request->get('userid');
+        
+        $user = User::find($userid);
+
 
         $sub = new Sub();
-        $sub->post_date = date("Y-m-d");
+        $sub->post_datetime = Carbon::now()->toDateTimeString();
         $sub->date_to = $date_to;
         $sub->date_from = $date_from;
-        $sub->division = $division;
-        $sub->username = $username;
-        $sub->day_month = "day";
-        $sub->zilla = $zilla;
-        $sub->thana = $thana;
+        $sub->place = $place;
+        $sub->username = $user->username;
+        $sub->userid = $userid;
+        $sub->placelat = $placelat;
+        $sub->placelon = $placelon;
         $sub->duration = strtotime($date_to) - strtotime($date_from);
-        $sub->hospital_name = $hospital;
+        $sub->institute = $institute;
         $sub->details = $details;
         $sub->available = 1;
-        $sub->payment = 0;
+
         $sub->save();
 
         return "success";
