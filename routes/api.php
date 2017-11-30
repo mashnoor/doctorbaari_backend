@@ -25,3 +25,4 @@ Route::post('/updateuserprofile', 'UserController@updateUserProfile');
 Route::post('/searchpermanentjob', 'PermanentjobController@searchPermanentJob');
 Route::get('/getcollegelist', 'PermanentjobController@getCollegeList');
 Route::post('/changestatus', 'UserController@changeAvaibilityStatus');
+Route::post('/searchsub', 'SubController@searchSub');

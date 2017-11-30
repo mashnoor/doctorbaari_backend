@@ -17,6 +17,7 @@ class SubController extends Controller
     function postSub(Request $request)
     {
 
+
         $date_to = $request->get('date_to');
         $date_from = $request->get('date_from');
         $place = $request->get('place');
@@ -48,5 +49,18 @@ class SubController extends Controller
         return "success";
 
 
+    }
+
+    function searchSub(Request $request)
+    {
+        $fromDate = $request->get('fromdate');
+        $toDate = $request->get('todate');
+        $place = $request->get('place');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
+        $degree = $request->get('degree');
+        $userid = $request->get('userid');
+
+        return Sub::all();
     }
 }
