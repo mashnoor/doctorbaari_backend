@@ -61,6 +61,6 @@ class SubController extends Controller
         $degree = $request->get('degree');
         $userid = $request->get('userid');
 
-        return Sub::all();
+        return User::where('available', '=', '1')->where('type', '=', 'doctor')->get();
     }
 }
