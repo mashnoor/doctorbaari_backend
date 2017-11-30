@@ -93,7 +93,7 @@ class UserController extends Controller
         $userid = $request->get('userid');
         $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
 
-        return
+        return $subPosts;
         //$permanentPosts = PermanentJob::where('userid', '=', $userid)->get();
 
         //return array_merge($subPosts, $permanentPosts);
