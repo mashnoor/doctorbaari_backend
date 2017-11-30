@@ -91,10 +91,11 @@ class UserController extends Controller
     function getUsersPostedJobs(Request $request)
     {
         $userid = $request->get('userid');
-        $subPosts = Sub::where('userid', '=', $userid)->get();
+        $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
 
-        $permanentPosts = PermanentJob::where('userid', '=', $userid)->get();
+        return
+        //$permanentPosts = PermanentJob::where('userid', '=', $userid)->get();
 
-        return array_merge($subPosts, $permanentPosts);
+        //return array_merge($subPosts, $permanentPosts);
     }
 }
