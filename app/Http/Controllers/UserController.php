@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\PermanentJob;
+use App\Sub;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -84,5 +86,15 @@ class UserController extends Controller
         $user->to_date = $request->get('to_date');
         $user->save();
         return "done";
+    }
+
+    function getUsersPostedJobs(Request $request)
+    {
+        $userid = $request->get('userid');
+        $subPosts = Sub::where('userid', '=', $userid)->get();
+
+        $permanentPosts = PermanentJob::where('userid', '=', $userid)->get();
+
+        return array_merge($subPosts, $permanentPosts);
     }
 }
