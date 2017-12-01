@@ -87,6 +87,7 @@ class UserController extends Controller
         $place = $request->get('place');
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
+        $available = $request->get('available');
 
         $avaibility = new Avaibility();
         $avaibility->from_date = $fromdate;
@@ -95,7 +96,7 @@ class UserController extends Controller
         $avaibility->placelat = $placelat;
         $avaibility->placelon = $placelon;
         $avaibility->post_datetime = Carbon::now()->toDateTimeString();
-        $avaibility->available = "1";
+        $avaibility->available = $available;
         $avaibility->userid = $userid;
 
         $avaibility->save();
