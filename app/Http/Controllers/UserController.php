@@ -126,5 +126,13 @@ class UserController extends Controller
 
         //return array_merge($subPosts, $permanentPosts);
     }
-    
+
+    function getAvaibilityList(Request $request)
+    {
+        $userid = $request->get('userid');
+        $list = Avaibility::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+
+        return $list;
+    }
+
 }
