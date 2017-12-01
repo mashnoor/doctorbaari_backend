@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Avaibility;
 use App\PermanentJob;
 use App\Sub;
 use App\User;
@@ -78,6 +79,33 @@ class UserController extends Controller
 
     }
 
+    function addToAvaibilityList(Request $request)
+    {
+        $userid = $request->get('userid');
+        $fromdate = $request->get('fromdate');
+        $todate = $request->get('todate');
+        $place = $request->get('place');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
+
+        $avaibility = new Avaibility();
+        $avaibility->from_date = $fromdate;
+        $avaibility->to_date = $todate;
+        $avaibility->place = $place;
+        $avaibility->placelat = $placelat;
+        $avaibility->placelon = $placelon;
+        $avaibility->post_datetime = Carbon::now()->toDateTimeString();
+        $avaibility->available = "1";
+        $avaibility->userid = $userid;
+
+        $avaibility->save();
+
+        return "success";
+
+
+
+    }
+
     function changeAvaibilityStatus(Request $request)
     {
         $user = User::find($request->get('userid'));
@@ -98,4 +126,5 @@ class UserController extends Controller
 
         //return array_merge($subPosts, $permanentPosts);
     }
+    
 }
