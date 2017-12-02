@@ -23,6 +23,10 @@ class UserController extends Controller
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
         $type = $request->get('type');
+        $email = $request->get('email', 'Not Available');
+        $publicLink = $request->get('link', 'Not Available');
+        $pictureUrl = $request->get('picture_url', 'Not Available');
+
 
         $dummyUser = User::where('phone', '=', $contact)->first();
         if (!is_null($dummyUser)) {
@@ -41,6 +45,9 @@ class UserController extends Controller
         $user->placelat = $placelat;
         $user->placelon = $placelon;
         $user->type = $type;
+        $user->email = $email;
+        $user->fb_profile = $publicLink;
+        $user->pp_url = $pictureUrl;
         $user->available = "0";
         $user->save();
         return $user->id;
