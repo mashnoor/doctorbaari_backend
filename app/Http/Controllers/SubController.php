@@ -66,8 +66,7 @@ class SubController extends Controller
         $userid = $request->get('userid');
         $avaibilities = Avaibility::where('available', '=', '1')->get();
         $available_users = array();
-        foreach ($avaibilities as $avaibility)
-        {
+        foreach ($avaibilities as $avaibility) {
             $userid = $avaibility->userid;
             $user = User::find($userid);
             array_push($available_users, $user);
@@ -87,26 +86,25 @@ class SubController extends Controller
         $len_per = count($permanents);
         $i = 0;
         $j = 0;
-        while ($i < $len_sub && $j < $len_per)
-        {
-            if($subs[$i]->post_datetime > $permanents[$j]->post_datetime)
-            {
+        while ($i < $len_sub && $j < $len_per) {
+            if ($subs[$i]->post_datetime > $permanents[$j]->post_datetime) {
+                $subs[$i]['user'] = User::find($subs[$i]->userid);
                 array_push($main_res, $subs[$i]);
                 $i++;
-            }
-            else
-            {
+            } else {
+                $permanents[$j]['user'] = User::find($permanents[$j]->userid);
                 array_push($main_res, $permanents[$j]);
+
                 $j++;
             }
         }
-        while ($i < $len_sub)
-        {
+        while ($i < $len_sub) {
+            $subs[$i]['user'] = User::find($subs[$i]->userid);
             array_push($main_res, $subs[$i]);
             $i++;
         }
-        while (($j < $len_per))
-        {
+        while (($j < $len_per)) {
+            $permanents[$j]['user'] = User::find($permanents[$j]->userid);
             array_push($main_res, $permanents[$j]);
             $j++;
         }
