@@ -121,6 +121,7 @@ class UserController extends Controller
 
         $available = Avaibility::find($id);
         $available->available = $status;
+        $available->save();
 
         return "done";
     }
