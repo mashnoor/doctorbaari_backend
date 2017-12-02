@@ -72,6 +72,6 @@ class SubController extends Controller
             array_push($available_users, $user);
         }
 
-        return User::where('available', '=', '1')->where('type', '=', 'doctor')->get();
+        return $available_users;
     }
 }
