@@ -29,3 +29,4 @@ Route::post('/searchsub', 'SubController@searchSub');
 Route::post('/gethistory', 'UserController@getUsersPostedJobs');
 Route::post('/addtoavaibility', 'UserController@addToAvaibilityList');
 Route::post('/getavaibilitylist', 'UserController@getAvaibilityList');
+Route::post('/searchsubstitutejob', 'SubController@getAllSubs');
