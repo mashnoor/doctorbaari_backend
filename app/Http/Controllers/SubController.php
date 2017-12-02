@@ -26,6 +26,7 @@ class SubController extends Controller
         $institute = $request->get('institute');
         $details = $request->get('details');
         $userid = $request->get('userid');
+        $degree = $request->get('degree');
 
         $user = User::find($userid);
 
@@ -43,6 +44,7 @@ class SubController extends Controller
         $sub->institute = $institute;
         $sub->details = $details;
         $sub->available = 1;
+        $sub->degree = $degree;
 
         $sub->save();
 
