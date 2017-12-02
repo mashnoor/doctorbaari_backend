@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Avaibility;
 use App\Sub;
 use App\User;
 use Carbon\Carbon;
@@ -62,6 +63,14 @@ class SubController extends Controller
         $placelon = $request->get('placelon');
         $degree = $request->get('degree');
         $userid = $request->get('userid');
+        $avaibilities = Avaibility::where('available', '=', '1')->get();
+        $available_users = array();
+        foreach ($avaibilities as $avaibility)
+        {
+            $userid = $avaibility->userid;
+            $user = User::find($userid);
+            array_push($available_users, $user);
+        }
 
         return User::where('available', '=', '1')->where('type', '=', 'doctor')->get();
     }

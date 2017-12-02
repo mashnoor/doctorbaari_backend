@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Avaibility;
-use App\PermanentJob;
+
 use App\Sub;
 use App\User;
 use Carbon\Carbon;
