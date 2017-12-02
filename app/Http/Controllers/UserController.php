@@ -116,11 +116,12 @@ class UserController extends Controller
 
     function changeAvaibilityStatus(Request $request)
     {
-        $user = User::find($request->get('userid'));
-        $user->available = $request->get('status');
-        $user->from_date = $request->get('from_date');
-        $user->to_date = $request->get('to_date');
-        $user->save();
+        $id = $request->get('availability_id');
+        $status = $request->get('status');
+
+        $available = Avaibility::find($id);
+        $available->available = $status;
+
         return "done";
     }
 
