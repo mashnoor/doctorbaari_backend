@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Avaibility;
+use App\PermanentJob;
 use App\Sub;
 use App\User;
 use Carbon\Carbon;
@@ -73,5 +74,41 @@ class SubController extends Controller
         }
 
         return $available_users;
+    }
+
+    function getNewsFeed()
+    {
+        $subs = Sub::orderBy('post_datetime', 'DESC')->get();
+        $permanents = PermanentJob::orderBy('post_datetime', 'DESC')->get();
+
+        $main_res = array();
+
+        $len_sub = count($subs);
+        $len_per = count($permanents);
+        $i = 0;
+        $j = 0;
+        while ($i < $len_sub && $j < $len_per)
+        {
+            if($subs[$i]->post_datetime > $permanents[$j]->post_datetime)
+            {
+                array_push($main_res, $subs[$i]);
+                $i++;
+            }
+            else
+            {
+                array_push($main_res, $permanents[$j]);
+                $j++;
+            }
+        }
+        while ($i < $len_sub)
+        {
+            array_push($main_res, $subs[$i]);
+        }
+        while (($j < $len_per))
+        {
+            array_push($main_res, $permanents[$j]);
+        }
+
+        return $main_res;
     }
 }
