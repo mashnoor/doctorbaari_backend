@@ -103,10 +103,12 @@ class SubController extends Controller
         while ($i < $len_sub)
         {
             array_push($main_res, $subs[$i]);
+            $i++;
         }
         while (($j < $len_per))
         {
             array_push($main_res, $permanents[$j]);
+            $j++;
         }
 
         return $main_res;
