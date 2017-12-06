@@ -95,6 +95,7 @@ class UserController extends Controller
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
         $available = $request->get('available');
+        $type = $request->get('type');
 
         $avaibility = new Avaibility();
         $avaibility->from_date = $fromdate;
@@ -105,11 +106,11 @@ class UserController extends Controller
         $avaibility->post_datetime = Carbon::now()->toDateTimeString();
         $avaibility->available = $available;
         $avaibility->userid = $userid;
+        $avaibility->type = $type;
 
         $avaibility->save();
 
         return "success";
-
 
 
     }
@@ -140,9 +141,13 @@ class UserController extends Controller
     function getAvaibilityList(Request $request)
     {
         $userid = $request->get('userid');
-        $list = Avaibility::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+        $type = $request->get('type', 'all');
+        if ($type == "all")
+            return Avaibility::where('userid', '=', $userid)->where('type', '=', $type)->orderBy('post_datetime', 'DESC')->get();
 
-        return $list;
+        else
+            return Avaibility::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+
     }
 
 }

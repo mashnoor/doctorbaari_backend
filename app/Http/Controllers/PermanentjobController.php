@@ -73,8 +73,8 @@ class PermanentjobController extends Controller
 
     function searchPermanentJob(Request $request)
     {
-        $startingDate = $request->get('deadline');
-        $degree = $request->get('degree');
+        $fromdate = $request->get('fromdate');
+        $degree = $request->get('userid');
         $location = $request->get('place');
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
