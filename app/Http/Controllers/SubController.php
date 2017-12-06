@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class SubController extends Controller
 {
-    function getAllSubs()
+    function searchSubJobs()
     {
         return Sub::all();
     }
@@ -55,7 +55,7 @@ class SubController extends Controller
 
     }
 
-    function searchSub(Request $request)
+    function searchAvailableSubs(Request $request)
     {
         $fromDate = $request->get('fromdate');
         $toDate = $request->get('todate');
