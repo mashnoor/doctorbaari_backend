@@ -25,7 +25,7 @@ class PermanentjobController extends Controller
         if($request->hasFile('imagefile'))
         {
             $path = Storage::putFileAs(
-                'permanentimages', $request->file('avatar'), "1234.jpg"
+                'permanentimages', $request->file('imagefile'), "1234.jpg"
             );
             return $path;
         }
