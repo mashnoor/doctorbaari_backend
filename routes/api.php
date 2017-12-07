@@ -25,7 +25,7 @@ Route::post('/updateuserprofile', 'UserController@updateUserProfile');
 Route::post('/searchpermanentjob', 'PermanentjobController@searchPermanentJob');
 Route::get('/getcollegelist', 'PermanentjobController@getCollegeList');
 Route::post('/changestatus', 'UserController@changeAvaibilityStatus');
-Route::post('/searchavailablesubs', 'SubController@searchAvailableSubs');
+Route::post('/searchavailabledoctors', 'UserController@searchAvailableDoctors');
 Route::post('/gethistory', 'UserController@getUsersPostedJobs');
 Route::post('/addtoavaibility', 'UserController@addToAvaibilityList');
 Route::post('/getavaibilitylist', 'UserController@getAvaibilityList');

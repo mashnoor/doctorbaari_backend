@@ -142,12 +142,33 @@ class UserController extends Controller
     {
         $userid = $request->get('userid');
         $type = $request->get('type', 'all');
-        if ($type == "all")
+        if (!$type == "all")
             return Avaibility::where('userid', '=', $userid)->where('type', '=', $type)->orderBy('post_datetime', 'DESC')->get();
 
         else
             return Avaibility::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
 
+    }
+
+    function searchAvailableDoctors(Request $request)
+    {
+        $fromDate = $request->get('fromdate');
+        $toDate = $request->get('todate');
+        $place = $request->get('place');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
+        $degree = $request->get('degree');
+        $userid = $request->get('userid');
+        $type = $request->get('type');
+        $availabilities = Avaibility::where('available', '=', '1')->where('type', '=', $type)->get();
+        $available_users = array();
+        foreach ($availabilities as $availability) {
+            $userid = $availability->userid;
+            $user = User::find($userid);
+            array_push($available_users, $user);
+        }
+
+        return $available_users;
     }
 
 }

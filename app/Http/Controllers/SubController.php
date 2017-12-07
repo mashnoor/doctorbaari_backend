@@ -55,25 +55,7 @@ class SubController extends Controller
 
     }
 
-    function searchAvailableSubs(Request $request)
-    {
-        $fromDate = $request->get('fromdate');
-        $toDate = $request->get('todate');
-        $place = $request->get('place');
-        $placelat = $request->get('placelat');
-        $placelon = $request->get('placelon');
-        $degree = $request->get('degree');
-        $userid = $request->get('userid');
-        $avaibilities = Avaibility::where('available', '=', '1')->get();
-        $available_users = array();
-        foreach ($avaibilities as $avaibility) {
-            $userid = $avaibility->userid;
-            $user = User::find($userid);
-            array_push($available_users, $user);
-        }
 
-        return $available_users;
-    }
 
     function getNewsFeed()
     {
