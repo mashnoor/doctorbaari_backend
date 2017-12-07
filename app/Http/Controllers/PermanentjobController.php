@@ -44,7 +44,7 @@ class PermanentjobController extends Controller
         if ($request->hasFile('imagefile')) {
             $fileName = $this->generateRandomString();
             Storage::putFileAs(
-                'public', $request->file('imagefile'), $fileName
+                'public', $request->file('imagefile'), $fileName . ".jpg"
             );
 
             $image_link = "https://doctorbaari.com:1234/storage/" . $fileName . ".jpg";
