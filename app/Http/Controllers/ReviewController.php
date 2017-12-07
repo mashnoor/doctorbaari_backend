@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Review;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,16 +17,20 @@ class ReviewController extends Controller
         $rating = $request->get('rating');
         $datetime = Carbon::now()->toDateTimeString();
 
+        $reviewer = User::find($reviewed_from);
+
         $newrev = new Review();
         $newrev->reviewed_from = $reviewed_from;
         $newrev->reviewed_to = $reviewed_to;
         $newrev->review = $review;
         $newrev->rating = $rating;
+        $newrev->reviewer_name = $reviewer->username;
         $newrev->post_datetime = $datetime;
 
         $newrev->save();
         return "success";
     }
+
     function getReviews(Request $request)
     {
         $reviewed_to = $request->get('reviewed_to');
