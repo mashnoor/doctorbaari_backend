@@ -6,6 +6,7 @@ use App\PermanentJob;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PermanentjobController extends Controller
 {
@@ -21,6 +22,13 @@ class PermanentjobController extends Controller
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
         $userid = $request->get('userid');
+        if($request->hasFile('imagefile'))
+        {
+            $path = Storage::putFileAs(
+                'permanentimages', $request->file('avatar'), "1234.jpg"
+            );
+            return $path;
+        }
 
         $user = User::find($userid);
 
