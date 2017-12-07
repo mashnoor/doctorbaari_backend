@@ -27,7 +27,8 @@ class PermanentjobController extends Controller
             $path = Storage::putFileAs(
                 'permanentimages', $request->file('imagefile'), "1234.jpg"
             );
-            return $path;
+
+            return Storage::url("1234.jpg");
         }
 
         $user = User::find($userid);
