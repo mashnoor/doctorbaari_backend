@@ -30,3 +30,7 @@ Route::post('/gethistory', 'UserController@getUsersPostedJobs');
 Route::post('/addtoavaibility', 'UserController@addToAvaibilityList');
 Route::post('/getavaibilitylist', 'UserController@getAvaibilityList');
 Route::post('/searchsubstitutejob', 'SubController@searchSubJobs');
+
+//Review Routes
+Route::post('/makereview', 'ReviewController@makeReview');
+Route::post('/getreviews', 'ReviewController@getReviews');
