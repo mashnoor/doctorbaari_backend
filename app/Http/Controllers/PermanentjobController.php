@@ -5,11 +5,29 @@ namespace App\Http\Controllers;
 use App\PermanentJob;
 use App\User;
 use Carbon\Carbon;
+
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PermanentjobController extends Controller
 {
+    function generateRandomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    function getPermanentJobImage($imagename)
+    {
+
+    }
+
     function postPermanentJob(Request $request)
     {
         $post_date = Carbon::now()->toDateTimeString();
@@ -22,13 +40,15 @@ class PermanentjobController extends Controller
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
         $userid = $request->get('userid');
-        if($request->hasFile('imagefile'))
-        {
-            $path = Storage::putFileAs(
-                'permanentimages', $request->file('imagefile'), "1234.jpg"
+        $image_link = "Not Available";
+        if ($request->hasFile('imagefile')) {
+            $fileName = $this->generateRandomString();
+            Storage::putFileAs(
+                'public', $request->file('imagefile'), $fileName
             );
 
-            return Storage::url("1234.jpg");
+            $image_link = "https://doctorbaari.com:1234/storage/" . $fileName . ".jpg";
+
         }
 
         $user = User::find($userid);
@@ -47,6 +67,7 @@ class PermanentjobController extends Controller
         $permanentJob->degree = $degree;
         $permanentJob->userid = $userid;
         $permanentJob->username = $user->username;
+        $permanentJob->imagelink = $image_link;
 
         $permanentJob->save();
 
