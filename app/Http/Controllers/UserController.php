@@ -142,8 +142,8 @@ class UserController extends Controller
     {
         $userid = $request->get('userid');
         $type = $request->get('type', 'all');
-        return $type;
-        if (!$type == "all")
+
+        if (!strcmp($type, "all") == 0)
             return Avaibility::where('userid', '=', $userid)->where('type', '=', $type)->orderBy('post_datetime', 'DESC')->get();
 
         else
