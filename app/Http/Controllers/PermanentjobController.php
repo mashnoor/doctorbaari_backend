@@ -23,11 +23,6 @@ class PermanentjobController extends Controller
         return $randomString;
     }
 
-    function getPermanentJobImage($imagename)
-    {
-
-    }
-
     function postPermanentJob(Request $request)
     {
         $post_date = Carbon::now()->toDateTimeString();
