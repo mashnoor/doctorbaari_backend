@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Avaibility;
 
+use App\PermanentJob;
 use App\Sub;
 use App\User;
 use Carbon\Carbon;
@@ -130,12 +131,20 @@ class UserController extends Controller
     function getUsersPostedJobs(Request $request)
     {
         $userid = $request->get('userid');
-        $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+        $type = $request->get('type');
+        if(strcmp($type, "sub"))
+        {
+            $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+            return $subPosts;
+        }
+        else
+        {
+            $permanentPosts = PermanentJob::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+            return $permanentPosts;
+        }
 
-        return $subPosts;
-        //$permanentPosts = PermanentJob::where('userid', '=', $userid)->get();
 
-        //return array_merge($subPosts, $permanentPosts);
+
     }
 
     function getAvaibilityList(Request $request)
