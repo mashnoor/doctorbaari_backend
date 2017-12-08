@@ -132,7 +132,7 @@ class UserController extends Controller
     {
         $userid = $request->get('userid');
         $type = $request->get('type');
-        if(strcmp($type, "sub"))
+        if(strcmp($type, "sub") == 0)
         {
             $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
             return $subPosts;
