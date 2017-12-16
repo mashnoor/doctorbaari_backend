@@ -35,3 +35,4 @@ Route::post('/searchsubstitutejob', 'SubController@searchSubJobs');
 Route::post('/makereview', 'ReviewController@makeReview');
 Route::post('/getreviews', 'ReviewController@getReviews');
 Route::get('/getadvertises', 'AdvertiseController@getAdvertises');
+Route::post('/inquiry', 'InquiryController@getUsersList');
