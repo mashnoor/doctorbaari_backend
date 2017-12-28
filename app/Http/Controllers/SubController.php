@@ -56,9 +56,14 @@ class SubController extends Controller
     }
 
 
-
-    function getNewsFeed()
+    function getNewsFeed(Request $request)
     {
+
+        $userid = $request->get('id');
+        $user = User::find($userid);
+        $lat = doubleval($user->placelat);
+        $lon = doubleval($user->placelon);
+
         $subs = Sub::orderBy('post_datetime', 'DESC')->get();
         $permanents = PermanentJob::orderBy('post_datetime', 'DESC')->get();
 
@@ -71,10 +76,16 @@ class SubController extends Controller
         while ($i < $len_sub && $j < $len_per) {
             if ($subs[$i]->post_datetime > $permanents[$j]->post_datetime) {
                 $subs[$i]['user'] = User::find($subs[$i]->userid);
+                $culat = doubleval($subs[$i]->placelat);
+                $clon = doubleval($subs[$i]->placelon);
+                $subs[$i]->distance = HelperController::distance($lat, $lon, $culat, $clon, "K");
                 array_push($main_res, $subs[$i]);
                 $i++;
             } else {
                 $permanents[$j]['user'] = User::find($permanents[$j]->userid);
+                $culat = doubleval($permanents[$j]->placelat);
+                $clon = doubleval($permanents[$j]->placelon);
+                $permanents[$j]->distance = HelperController::distance($lat, $lon, $culat, $clon, "K");
                 array_push($main_res, $permanents[$j]);
 
                 $j++;
@@ -82,11 +93,17 @@ class SubController extends Controller
         }
         while ($i < $len_sub) {
             $subs[$i]['user'] = User::find($subs[$i]->userid);
+            $culat = doubleval($subs[$i]->placelat);
+            $clon = doubleval($subs[$i]->placelon);
+            $subs[$i]->distance = HelperController::distance($lat, $lon, $culat, $clon, "K");
             array_push($main_res, $subs[$i]);
             $i++;
         }
         while (($j < $len_per)) {
             $permanents[$j]['user'] = User::find($permanents[$j]->userid);
+            $culat = doubleval($permanents[$j]->placelat);
+            $clon = doubleval($permanents[$j]->placelon);
+            $permanents[$j]->distance = HelperController::distance($lat, $lon, $culat, $clon, "K");
             array_push($main_res, $permanents[$j]);
             $j++;
         }

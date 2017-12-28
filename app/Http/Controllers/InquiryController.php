@@ -4,28 +4,12 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\HelperController;
 
 class InquiryController extends Controller
 {
 
-    function distance($lat1, $lon1, $lat2, $lon2, $unit)
-    {
 
-        $theta = $lon1 - $lon2;
-        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-        $dist = acos($dist);
-        $dist = rad2deg($dist);
-        $miles = $dist * 60 * 1.1515;
-        $unit = strtoupper($unit);
-
-        if ($unit == "K") {
-            return ($miles * 1.609344);
-        } else if ($unit == "N") {
-            return ($miles * 0.8684);
-        } else {
-            return $miles;
-        }
-    }
 
     function cmp($user1, $user2)
     {
@@ -45,7 +29,7 @@ class InquiryController extends Controller
         foreach ($usersAll as $user) {
             $currUserLat = doubleval($user->placelat);
             $currUserLon = doubleval($user->placelon);
-            $distance = $this->distance($placelat, $placelon, $currUserLat, $currUserLon, "K");
+            $distance = HelperController::distance($placelat, $placelon, $currUserLat, $currUserLon, "K");
             if ($distance <= 0.2) {
                 $user->distance = $distance;
                 array_push($nearUsers, $user);

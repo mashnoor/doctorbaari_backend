@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/signup', 'UserController@signupMBBS');
-Route::get('/getnewsfeed', 'SubController@getNewsFeed');
+Route::post('/getnewsfeed', 'SubController@getNewsFeed');
 Route::post('/postsub', 'SubController@postSub');
 Route::post('/postpermanetjob', 'PermanentjobController@postPermanentJob');
 Route::post('/verifyregno', 'VerificationController@verify');
