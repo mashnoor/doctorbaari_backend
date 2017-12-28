@@ -47,7 +47,7 @@ class InquiryController extends Controller
             $currUserLon = doubleval($user->placelon);
             $distance = $this->distance($placelat, $placelon, $currUserLat, $currUserLon, "K");
             if ($distance <= 0.2) {
-                $user['distance'] = $distance;
+                $user->distance = $distance;
                 array_push($nearUsers, $user);
             }
         }
