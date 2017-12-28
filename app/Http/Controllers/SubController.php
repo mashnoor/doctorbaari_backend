@@ -59,7 +59,7 @@ class SubController extends Controller
     function getNewsFeed(Request $request)
     {
 
-        $userid = $request->get('id');
+        $userid = $request->get('userid');
         $user = User::find($userid);
         $lat = doubleval($user->placelat);
         $lon = doubleval($user->placelon);
