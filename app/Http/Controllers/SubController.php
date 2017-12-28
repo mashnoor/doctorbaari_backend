@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 class SubController extends Controller
 {
+
+    function cmp(Sub $job_1, Sub $job_2)
+    {
+        if ($job_1->distance == $job_2->distance) return 0;
+        if ($job_1->distance < $job_2->distance) return -1;
+        return 1;
+
+    }
+
     function searchSubJobs(Request $request)
     {
         $placeLat = doubleval($request->get('placelat'));
@@ -26,6 +35,7 @@ class SubController extends Controller
             $cursub->distance = HelperController::distance($placeLat, $placeLon, $clat, $clon, "K");
             array_push($retSubs, $cursub);
         }
+        usort($retSubs, array($this, "cmp"));
 
         return $retSubs;
     }
