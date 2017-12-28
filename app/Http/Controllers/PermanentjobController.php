@@ -93,6 +93,9 @@ class PermanentjobController extends Controller
 
     function cmp(PermanentJob $job_1, PermanentJob $job_2)
     {
+        if ($job_1->distance == $job_2->distance) return 0;
+        if ($job_1->distance < $job_2->distance) return -1;
+        return 1;
 
     }
 
@@ -101,11 +104,22 @@ class PermanentjobController extends Controller
         $fromdate = $request->get('fromdate');
         $degree = $request->get('userid');
         $location = $request->get('place');
-        $placelat = $request->get('placelat');
-        $placelon = $request->get('placelon');
+        $placelat = doubleval($request->get('placelat'));
+        $placelon = doubleval($request->get('placelon'));
 
         //$jobs = PermanentJob::where('deadline', '>=', $startingDate)->where('degree', '=', $degree)->where('location', '=', $location)->get();
-        return PermanentJob::all();
+        $jobs = PermanentJob::where("deadline", ">=", $fromdate)->get();
+        $retjobs = array();
+        foreach ($jobs as $currjob) {
+            $clat = doubleval($currjob->placelat);
+            $clon = doubleval($currjob->placelon);
+            $currjob->distance = HelperController::distance($clat, $clon, $placelat, $placelon, "K");
+            array_push($retjobs, $currjob);
+        }
+        usort($retjobs, array($this, "cmp"));
+        return $retjobs;
+
+
     }
 
     function getCollegeList()
