@@ -53,7 +53,7 @@ class InquiryController extends Controller
         }
 
         //Sort the users according to distance
-        usort($nearUsers, "cmp");
+        usort($nearUsers, array($this, "cmp"));
 
 
         return $nearUsers;
