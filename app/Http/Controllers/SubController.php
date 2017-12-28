@@ -17,7 +17,7 @@ class SubController extends Controller
         $placeLon = doubleval($request->get('placelon'));
         $fromdate = $request->get('fromdate');
         $todate = $request->get('todate');
-        $subs = Sub::where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->all();
+        $subs = Sub::where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->get();
         $retSubs = array();
 
         foreach ($subs as $cursub) {
