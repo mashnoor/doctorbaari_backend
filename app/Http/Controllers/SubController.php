@@ -11,9 +11,23 @@ use Illuminate\Http\Request;
 
 class SubController extends Controller
 {
-    function searchSubJobs()
+    function searchSubJobs(Request $request)
     {
-        return Sub::all();
+        $placeLat = doubleval($request->get('placelat'));
+        $placeLon = doubleval($request->get('placelon'));
+        $fromdate = $request->get('fromdate');
+        $todate = $request->get('todate');
+        $subs = Sub::where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->all();
+        $retSubs = array();
+
+        foreach ($subs as $cursub) {
+            $clat = doubleval($cursub->placelat);
+            $clon = doubleval($cursub->placelon);
+            $cursub->distance = HelperController::distance($placeLat, $placeLon, $clat, $clon, "K");
+            array_push($retSubs, $cursub);
+        }
+
+        return $retSubs;
     }
 
     function postSub(Request $request)
