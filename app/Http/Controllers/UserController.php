@@ -19,7 +19,7 @@ class UserController extends Controller
         $regno = $request->get('regno');
         $contact = $request->get('contact');
         $degree = $request->get('degree');
-        $dateofbirth = $request->get('dateofbirth');
+
         $place = $request->get('place');
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->degree = $degree;
         $user->mbbs_reg = $regno;
         $user->phone = $contact;
-        $user->birthdate = $dateofbirth;
+       
         $user->place = $place;
         $user->created_at = Carbon::now()->toDateTimeString();
         $user->placelat = $placelat;
