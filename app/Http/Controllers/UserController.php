@@ -40,7 +40,7 @@ class UserController extends Controller
                 'public', $request->file('imagefile'), $fileName . "_interncertificate.jpg"
             );
 
-            $image_link = "https://doctorbaari.com:1234/storage/" . $fileName . "_permanentjobimage.jpg";
+            $image_link = "https://doctorbaari.com:1234/storage/" . $fileName . "_interncertificate.jpg";
 
         }
         $place = $request->get('place');
