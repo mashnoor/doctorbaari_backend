@@ -10,6 +10,10 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use Illuminate\Http\File;
+
+use Illuminate\Support\Facades\Storage;
+
 class UserController extends Controller
 {
     function generateRandomString($length = 10)
