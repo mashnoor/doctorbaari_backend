@@ -19,7 +19,16 @@ class UserController extends Controller
         $regno = $request->get('regno');
         $contact = $request->get('contact');
         $degree = $request->get('degree');
+        $image_link = "Not Available";
+        if ($request->hasFile('imagefile')) {
+            $fileName = $this->generateRandomString();
+            Storage::putFileAs(
+                'public', $request->file('imagefile'), $fileName . "_interncertificate.jpg"
+            );
 
+            $image_link = "https://doctorbaari.com:1234/storage/" . $fileName . "_permanentjobimage.jpg";
+
+        }
         $place = $request->get('place');
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
@@ -40,7 +49,7 @@ class UserController extends Controller
         $user->degree = $degree;
         $user->mbbs_reg = $regno;
         $user->phone = $contact;
-       
+        $user->certificate_image = $image_link;
         $user->place = $place;
         $user->created_at = Carbon::now()->toDateTimeString();
         $user->placelat = $placelat;
@@ -132,17 +141,13 @@ class UserController extends Controller
     {
         $userid = $request->get('userid');
         $type = $request->get('type');
-        if(strcmp($type, "sub") == 0)
-        {
+        if (strcmp($type, "sub") == 0) {
             $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
             return $subPosts;
-        }
-        else
-        {
+        } else {
             $permanentPosts = PermanentJob::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
             return $permanentPosts;
         }
-
 
 
     }
