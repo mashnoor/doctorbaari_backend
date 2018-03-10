@@ -210,7 +210,7 @@ class UserController extends Controller
         foreach ($availabilities as $availability) {
             $userid = $availability->userid;
             $user = User::find($userid);
-            $user->distace = HelperController::distance($availability->placelat, $availability->placelon, $placelat, $placelon, "K");
+            $user->distance = HelperController::distance($availability->placelat, $availability->placelon, $placelat, $placelon, "K");
             array_push($available_users, $user);
         }
 
