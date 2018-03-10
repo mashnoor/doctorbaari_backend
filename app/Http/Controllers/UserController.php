@@ -190,20 +190,19 @@ class UserController extends Controller
         $degree = $request->get('degree');
         $userid = $request->get('userid');
         $type = $request->get('type');
-        if($type == "sub")
-        {
+        if ($type == "sub") {
 
-            $availabilities = Avaibility::where(['available', '=', '1'],
-                ['type', '=', $type],
-                ['from_date', '<=', $fromDate],
-                ['to_date','>=', $toDate]
+            $availabilities = Avaibility::where([
+                    ['available', '=', '1'],
+                    ['type', '=', $type],
+                    ['from_date', '<=', $fromDate],
+                    ['to_date', '>=', $toDate]
+                ]
             )->get();
-        }
-        else
-        {
-            $availabilities = Avaibility::where(['available', '=', '1'],
-                ['type', '=', $type],
-                ['from_date', '<=', $fromDate]
+        } else {
+            $availabilities = Avaibility::where([['available', '=', '1'],
+                    ['type', '=', $type],
+                    ['from_date', '<=', $fromDate]]
 
             )->get();
         }
