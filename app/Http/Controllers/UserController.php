@@ -26,6 +26,7 @@ class UserController extends Controller
         }
         return $randomString;
     }
+
     function signupMBBS(Request $request)
     {
         $name = $request->get('username');
@@ -189,11 +190,28 @@ class UserController extends Controller
         $degree = $request->get('degree');
         $userid = $request->get('userid');
         $type = $request->get('type');
-        $availabilities = Avaibility::where('available', '=', '1')->where('type', '=', $type)->get();
+        if($type == "sub")
+        {
+
+            $availabilities = Avaibility::where(['available', '=', '1'],
+                ['type', '=', $type],
+                ['from_date', '<=', $fromDate],
+                ['to_date','>=', $toDate]
+            )->get();
+        }
+        else
+        {
+            $availabilities = Avaibility::where(['available', '=', '1'],
+                ['type', '=', $type],
+                ['from_date', '<=', $fromDate]
+
+            )->get();
+        }
         $available_users = array();
         foreach ($availabilities as $availability) {
             $userid = $availability->userid;
             $user = User::find($userid);
+            $user->distace = HelperController::distance($availability->placelat, $availability->placelon, $placelat, $placelon, "K");
             array_push($available_users, $user);
         }
 
