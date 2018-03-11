@@ -36,3 +36,8 @@ Route::post('/makereview', 'ReviewController@makeReview');
 Route::post('/getreviews', 'ReviewController@getReviews');
 Route::get('/getadvertises', 'AdvertiseController@getAdvertises');
 Route::post('/inquiry', 'InquiryController@getUsersList');
+
+//Profile Update APIs
+Route::post('/addupdateworklocation', 'UserController@addUpdateWorkLocation');
+Route::post('/updatedegree', 'UserController@updateDegrees');
+Route::post('/getworklocations', 'WorkLocationController@getAllWorkLocation');

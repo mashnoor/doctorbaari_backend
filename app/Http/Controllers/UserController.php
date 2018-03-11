@@ -7,10 +7,9 @@ use App\Avaibility;
 use App\PermanentJob;
 use App\Sub;
 use App\User;
+use App\WorkLocation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
-use Illuminate\Http\File;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -75,6 +74,15 @@ class UserController extends Controller
         $user->pp_url = $pictureUrl;
         $user->available = "0";
         $user->save();
+
+        //Create New Work Location
+        $workLocation = new WorkLocation();
+        $workLocation->place = $place;
+        $workLocation->placelat = $placelat;
+        $workLocation->placelon = $placelon;
+        $workLocation->userid = $user->id;
+        $workLocation->save();
+
         return $user->id;
     }
 
@@ -110,6 +118,38 @@ class UserController extends Controller
         return "success";
 
     }
+
+    function updateDegrees(Request $request)
+    {
+        $userid = $request->get('userid');
+        $degrees = $request->get('degree');
+
+        $user = User::find($userid);
+        $user->degree = $degrees;
+        $user->save();
+        return "success";
+    }
+
+    function addUpdateWorkLocation(Request $request)
+    {
+        $place = $request->get('place');
+        $placelat = $request->get('placelat');
+        $placelon = $request->get('placelon');
+        $userid = $request->get('userid');
+        $workLocation = new WorkLocation();
+        $workLocation->place = $place;
+        $workLocation->placelat = $placelat;
+        $workLocation->placelon = $placelon;
+        $workLocation->userid = $userid;
+        $workLocation->save();
+
+        $user = User::find($userid);
+
+        $user->place = $place;
+        $user->placelat = $placelat;
+        $user->placelon = $placelon;
+    }
+
 
     function addToAvaibilityList(Request $request)
     {
