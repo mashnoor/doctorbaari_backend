@@ -148,6 +148,9 @@ class UserController extends Controller
         $user->place = $place;
         $user->placelat = $placelat;
         $user->placelon = $placelon;
+        $user->save();
+
+        return "success";
     }
 
 
