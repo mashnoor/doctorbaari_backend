@@ -82,14 +82,15 @@ class SubController extends Controller
 
     function getNewsFeed(Request $request)
     {
+        $todayDate = date("Y-m-d");
 
         $userid = $request->get('userid');
         $user = User::find($userid);
         $lat = doubleval($user->placelat);
         $lon = doubleval($user->placelon);
 
-        $subs = Sub::orderBy('post_datetime', 'DESC')->get();
-        $permanents = PermanentJob::orderBy('post_datetime', 'DESC')->get();
+        $subs = Sub::orderBy('post_datetime', 'DESC')->where('date_to', '>=', $todayDate)->get();
+        $permanents = PermanentJob::orderBy('post_datetime', 'DESC')->where('deadline', '>=', $todayDate)->get();
 
         $main_res = array();
 

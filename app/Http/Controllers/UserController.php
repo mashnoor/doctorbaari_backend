@@ -197,13 +197,20 @@ class UserController extends Controller
 
     function getUsersPostedJobs(Request $request)
     {
+        $todayDate = date("Y-m-d");
         $userid = $request->get('userid');
         $type = $request->get('type');
         if (strcmp($type, "sub") == 0) {
-            $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+            $subPosts = Sub::where([
+                ['userid', '=', $userid],
+                ['date_to', '>=', $todayDate]
+            ])->orderBy('post_datetime', 'DESC')->get();
             return $subPosts;
         } else {
-            $permanentPosts = PermanentJob::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
+            $permanentPosts = PermanentJob::where([
+                ['userid', '=', $userid],
+                ['deadline', '>=', $todayDate]
+            ])->orderBy('post_datetime', 'DESC')->get();
             return $permanentPosts;
         }
 
