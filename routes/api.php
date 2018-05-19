@@ -41,3 +41,6 @@ Route::post('/inquiry', 'InquiryController@getUsersList');
 Route::post('/addupdateworklocation', 'UserController@addUpdateWorkLocation');
 Route::post('/updatedegree', 'UserController@updateDegrees');
 Route::post('/getworklocations', 'WorkLocationController@getAllWorkLocation');
+
+//Update Job Availability
+Route::post('/updatejobavailability', 'UserController@updateJobAvailability');

@@ -153,6 +153,26 @@ class UserController extends Controller
         return "success";
     }
 
+    function updateJobAvailability(Request $request)
+    {
+        $type = $request->get('type');
+        $id = $request->get('id');
+        $availabilityValue = $request->get('value');
+
+        if (strcmp($type, 'per') == 0) {
+            //Job Is Permanent
+            $job = PermanentJob::find($id);
+
+        } else {
+            $job = Sub::find($id);
+
+        }
+        $job->available = $availabilityValue;
+        $job->save();
+
+        return 'success';
+    }
+
 
     function addToAvaibilityList(Request $request)
     {
@@ -203,12 +223,10 @@ class UserController extends Controller
         if (strcmp($type, "sub") == 0) {
             $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
             return $subPosts;
-        } else if(strcmp($type, "per") == 0) {
+        } else if (strcmp($type, "per") == 0) {
             $permanentPosts = PermanentJob::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
             return $permanentPosts;
-        }
-        else
-        {
+        } else {
             $subPosts = Sub::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
             $permanentPosts = PermanentJob::where('userid', '=', $userid)->orderBy('post_datetime', 'DESC')->get();
 
@@ -218,28 +236,22 @@ class UserController extends Controller
             $j = 0;
 
             $main_res = array();
-            while ($i < $subPostsLen && $j<$permanentPostsLen)
-            {
-                if($subPosts[$i]->post_datetime > $permanentPosts[$j]->post_datetime)
-                {
+            while ($i < $subPostsLen && $j < $permanentPostsLen) {
+                if ($subPosts[$i]->post_datetime > $permanentPosts[$j]->post_datetime) {
                     array_push($main_res, $subPosts[$i]);
                     $i++;
-                }
-                else
-                {
+                } else {
                     array_push($main_res, $permanentPosts[$j]);
                     $j++;
                 }
             }
 
-            while($i < $subPostsLen)
-            {
+            while ($i < $subPostsLen) {
                 array_push($main_res, $subPosts[$i]);
                 $i++;
             }
 
-            while($j < $permanentPostsLen)
-            {
+            while ($j < $permanentPostsLen) {
                 array_push($main_res, $permanentPosts[$j]);
                 $j++;
             }

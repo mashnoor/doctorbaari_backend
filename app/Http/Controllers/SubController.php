@@ -26,7 +26,7 @@ class SubController extends Controller
         $placeLon = doubleval($request->get('placelon'));
         $fromdate = $request->get('fromdate');
         $todate = $request->get('todate');
-        $subs = Sub::where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->get();
+        $subs = Sub::where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->where('available', '1')->get();
         $retSubs = array();
 
         foreach ($subs as $cursub) {
@@ -89,8 +89,8 @@ class SubController extends Controller
         $lat = doubleval($user->placelat);
         $lon = doubleval($user->placelon);
 
-        $subs = Sub::orderBy('post_datetime', 'DESC')->where('date_to', '>=', $todayDate)->get();
-        $permanents = PermanentJob::orderBy('post_datetime', 'DESC')->where('deadline', '>=', $todayDate)->get();
+        $subs = Sub::orderBy('post_datetime', 'DESC')->where('date_to', '>=', $todayDate)->where('available', '1')->get();
+        $permanents = PermanentJob::orderBy('post_datetime', 'DESC')->where('deadline', '>=', $todayDate)->where('available', '1')->get();
 
         $main_res = array();
 
