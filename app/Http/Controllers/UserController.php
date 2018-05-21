@@ -34,6 +34,7 @@ class UserController extends Controller
         $contact = $request->get('contact');
         $degree = $request->get('degree');
         $image_link = "Not Available";
+        $token = $request->get('token', null);
         if ($request->hasFile('imagefile')) {
             $fileName = $this->generateRandomString();
             Storage::putFileAs(
@@ -73,6 +74,7 @@ class UserController extends Controller
         $user->fb_profile = $publicLink;
         $user->pp_url = $pictureUrl;
         $user->available = "0";
+        $user->token = $token;
         $user->save();
 
         //Create New Work Location
@@ -171,6 +173,18 @@ class UserController extends Controller
         $job->save();
 
         return 'success';
+    }
+
+    function updateToken(Request $request)
+    {
+        $id = $request->get('userid');
+        $token = $request->get('token');
+
+        $user = User::find($id);
+        $user->token = $token;
+
+        $user->save();
+        return "success";
     }
 
 
@@ -284,7 +298,7 @@ class UserController extends Controller
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
         $degree = $request->get('degree');
-        
+
         $type = $request->get('type');
         if ($type == "sub") {
 

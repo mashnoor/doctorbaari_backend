@@ -47,3 +47,6 @@ Route::post('/updatejobavailability', 'UserController@updateJobAvailability');
 
 //Get Notifications
 Route::get('/getnotifications', 'NotificationController@getNotifications');
+
+//Update Token
+Route::post('/updatetoken', 'UserController@updateToken');
