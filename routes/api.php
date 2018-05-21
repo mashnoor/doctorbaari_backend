@@ -46,4 +46,4 @@ Route::post('/getworklocations', 'WorkLocationController@getAllWorkLocation');
 Route::post('/updatejobavailability', 'UserController@updateJobAvailability');
 
 //Get Notifications
-Route::post('/getnotifications', 'NotificationController@getNotifications');
+Route::get('/getnotifications', 'NotificationController@getNotifications');
