@@ -11,4 +11,19 @@ class NotificationController extends Controller
     {
         return Notification::all();
     }
+
+    function sendNotification(Request $request)
+    {
+        $title = $request->get('title');
+        $body = $request->get('body');
+        $date = date('Y-m-d');
+
+        $notification = new Notification();
+        $notification->title = $title;
+        $notification->body = $body;
+        $notification->post_date = $date;;
+        $notification->save();
+
+        return 'success';
+    }
 }
