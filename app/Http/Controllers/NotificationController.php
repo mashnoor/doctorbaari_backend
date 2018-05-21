@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notification;
+use App\User;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -23,7 +24,43 @@ class NotificationController extends Controller
         $notification->body = $body;
         $notification->post_date = $date;;
         $notification->save();
+        $this->sendPush();
 
         return 'success';
+    }
+
+    function sendPush()
+    {
+        // API access key from Google API's Console
+        define('API_ACCESS_KEY', 'AAAAGHmjY8k:APA91bG31Xjl445W5JJCLtY8AiUJBEESGtidyApGwWJUskXDnrz1-FSEQ6ZfWAjhbEHDDx6wwLRReG496UeFlgIuho4dinV7rQWuY1Ljt9CAgxtoOHgs6UZ5VcshE7yxCflnxkdjlSXp');
+        $registrationIds = User::all()->pluck('token')->toArray();
+// prep the bundle
+        $msg = array
+        (
+            'message' => 'here is a message. message',
+            'title' => 'This is a title. title',
+        );
+        $fields = array
+        (
+            'registration_ids' => $registrationIds,
+            'data' => $msg
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . API_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        echo $result;
     }
 }

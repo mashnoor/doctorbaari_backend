@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class WorkLocationController extends Controller
 {
-    function getAllWorkLocation(Request $request)
+                function getAllWorkLocation(Request $request)
     {
         $userid = $request->get('userid');
 
