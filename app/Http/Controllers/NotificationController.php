@@ -37,8 +37,8 @@ class NotificationController extends Controller
 // prep the bundle
         $msg = array
         (
-            'body' => $title,
-            'title' => $body,
+            'body' => $body,
+            'title' => $title,
         );
         $fields = array
         (
