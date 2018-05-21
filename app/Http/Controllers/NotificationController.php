@@ -24,12 +24,12 @@ class NotificationController extends Controller
         $notification->body = $body;
         $notification->post_date = $date;;
         $notification->save();
-        $this->sendPush();
+        $this->sendPush($title, $body);
 
         return 'success';
     }
 
-    function sendPush()
+    function sendPush($title, $body)
     {
         // API access key from Google API's Console
         define('API_ACCESS_KEY', 'AAAAGHmjY8k:APA91bG31Xjl445W5JJCLtY8AiUJBEESGtidyApGwWJUskXDnrz1-FSEQ6ZfWAjhbEHDDx6wwLRReG496UeFlgIuho4dinV7rQWuY1Ljt9CAgxtoOHgs6UZ5VcshE7yxCflnxkdjlSXp');
@@ -37,8 +37,8 @@ class NotificationController extends Controller
 // prep the bundle
         $msg = array
         (
-            'message' => 'here is a message. message',
-            'title' => 'This is a title. title',
+            'body' => $title,
+            'title' => $body,
         );
         $fields = array
         (
