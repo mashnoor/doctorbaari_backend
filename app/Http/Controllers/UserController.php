@@ -284,7 +284,7 @@ class UserController extends Controller
         $placelat = $request->get('placelat');
         $placelon = $request->get('placelon');
         $degree = $request->get('degree');
-        $userid = $request->get('userid');
+        
         $type = $request->get('type');
         if ($type == "sub") {
 
