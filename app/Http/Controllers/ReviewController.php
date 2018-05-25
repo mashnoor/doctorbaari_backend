@@ -18,8 +18,8 @@ class ReviewController extends Controller
         $datetime = Carbon::now()->toDateTimeString();
 
         $prevReview = Review::where([
-            ['reviewed_to' => $reviewed_to],
-            ['reviewed_from' => $reviewed_from]
+            ['reviewed_to', $reviewed_to],
+            ['reviewed_from', $reviewed_from]
         ])->first();
 
         if ($prevReview != null) {
