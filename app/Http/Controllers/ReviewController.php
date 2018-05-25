@@ -17,6 +17,15 @@ class ReviewController extends Controller
         $rating = $request->get('rating');
         $datetime = Carbon::now()->toDateTimeString();
 
+        $prevReview = Review::where([
+            ['reviewed_to' => $reviewed_to],
+            ['$reviewed_from' => $reviewed_from]
+        ])->first();
+
+        if ($prevReview != null) {
+            return 'already';
+        }
+
         $reviewer = User::find($reviewed_from);
 
         $newrev = new Review();
