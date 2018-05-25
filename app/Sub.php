@@ -11,6 +11,6 @@ class Sub extends Model
 
     function user()
     {
-        return $this->belongsTo(User::class, 'id', 'userid');
+        return $this->belongsTo(User::class, 'userid', 'id');
     }
 }
