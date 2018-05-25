@@ -19,7 +19,7 @@ class ReviewController extends Controller
 
         $prevReview = Review::where([
             ['reviewed_to' => $reviewed_to],
-            ['$reviewed_from' => $reviewed_from]
+            ['reviewed_from' => $reviewed_from]
         ])->first();
 
         if ($prevReview != null) {
