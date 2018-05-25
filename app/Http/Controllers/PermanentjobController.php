@@ -108,7 +108,7 @@ class PermanentjobController extends Controller
         $placelon = doubleval($request->get('placelon'));
 
         //$jobs = PermanentJob::where('deadline', '>=', $startingDate)->where('degree', '=', $degree)->where('location', '=', $location)->get();
-        $jobs = PermanentJob::where("deadline", ">=", $fromdate)->where('available', '1')->get();
+        $jobs = PermanentJob::with('user')->where("deadline", ">=", $fromdate)->where('available', '1')->get();
         $retjobs = array();
         foreach ($jobs as $currjob) {
             $clat = doubleval($currjob->placelat);
