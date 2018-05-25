@@ -8,4 +8,9 @@ class Sub extends Model
 {
     protected $table = "sub";
     public $timestamps = false;
+
+    function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'userid');
+    }
 }
