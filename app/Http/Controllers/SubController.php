@@ -27,8 +27,8 @@ class SubController extends Controller
         $fromdate = $request->get('fromdate');
         $todate = $request->get('todate');
         //$subs = Sub::with('user')->where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->where('available', '1')->get();
-        $subsFrom = Sub::with('user')->where('date_from', '>=', $fromdate)->where('date_from', '<=', $todate)->where('available', '1')->get();
-        $subsTo = Sub::with('user')->where('date_to', '>=', $fromdate)->where('date_to', '<=', $todate)->where('available', '1')->get();
+        $subsFrom = Sub::with('user')->where('date_from', '<=', $fromdate)->where('date_to', '>=', $fromdate)->where('available', '1')->get();
+        $subsTo = Sub::with('user')->where('date_from', '<=', $todate)->where('date_to', '>=', $todate)->where('available', '1')->get();
 
         $merged = $subsTo->merge($subsFrom);
 
