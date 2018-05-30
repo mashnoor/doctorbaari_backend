@@ -302,13 +302,28 @@ class UserController extends Controller
         $type = $request->get('type');
         if ($type == "sub") {
 
-            $availabilities = Avaibility::where([
+            $availabilitiesFrom = Avaibility::where([
                     ['available', '=', '1'],
                     ['type', '=', $type],
                     ['from_date', '<=', $fromDate],
+                    ['to_date', '>=', $fromDate]
+                ]
+            )->get();
+
+            $availabilitiesTo = Avaibility::where([
+                    ['available', '=', '1'],
+                    ['type', '=', $type],
+                    ['from_date', '<=', $toDate],
                     ['to_date', '>=', $toDate]
                 ]
             )->get();
+
+            $merged = $availabilitiesTo->merge($availabilitiesFrom);
+
+            $availabilities = $merged->all();
+
+
+
         } else {
             $availabilities = Avaibility::where([['available', '=', '1'],
                     ['type', '=', $type],
