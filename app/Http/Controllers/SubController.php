@@ -27,7 +27,12 @@ class SubController extends Controller
         $fromdate = $request->get('fromdate');
         $todate = $request->get('todate');
         //$subs = Sub::with('user')->where('date_from', '>=', $fromdate)->where('date_to', '<=', $todate)->where('available', '1')->get();
-        $subs = Sub::with('user')->whereBetween('date_from', [$fromdate, $todate])->orWhereBetween('date_to', [$fromdate, $todate])->where('available', '1')->get();
+        $subsFrom = Sub::with('user')->where('date_from', '>=', $fromdate)->where('date_from', '<=', $todate)->where('available', '1')->get();
+        $subsTo = Sub::with('user')->where('date_to', '>=', $fromdate)->where('date_to', '<=', $todate)->where('available', '1')->get();
+
+        $merged = $subsTo->merge($subsFrom);
+
+        $subs = $merged->all();
         $retSubs = array();
 
         foreach ($subs as $cursub) {
